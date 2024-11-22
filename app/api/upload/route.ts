@@ -59,14 +59,20 @@ export async function POST(req: Request) {
     });
 
 
-    const summary = await Promise.all(
-      splitDocs.map(async (doc) => {
-        const summar = await openai.invoke(
-          `Summarize the following document: ${doc.pageContent}`
-        );
-        return summar;
-      })
+    // const summary = await Promise.all(
+    //   splitDocs.map(async (doc) => {
+    //     const summar = await openai.invoke(
+    //       `Summarize the following document: ${doc.pageContent}`
+    //     );
+    //     return summar;
+    //   })
+    // );
+
+
+    const summary = await openai.invoke(
+      `Summarize the following document: ${splitDocs[0].pageContent}`
     );
+
     // console.log("Summarizes" , summary)
 
     // Store in Pinecone with metadata
